@@ -1,0 +1,39 @@
+# Laravel & PHP
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# Laravel 9+ storage symlink
+/public/storage
+
+# IDEs & OS
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs & Cache
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+
+# Laravel Telescope
+/telescope/requests.sqlite
+
+# PHPUnit
+.phpunit.result.cache
+
+# Docker & build
+docker-compose.override.yml
+.env.docker
+.env.testing
