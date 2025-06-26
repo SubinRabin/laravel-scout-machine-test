@@ -33,7 +33,7 @@ This project is a Laravel 12 application that implements a **website-wide search
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/SubinRabin/laravel-scout-machine-test.git
 cd your-repo
 
 
