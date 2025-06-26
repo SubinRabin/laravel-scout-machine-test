@@ -41,7 +41,7 @@ cp .env.example .env
 
 
 ### 2. Docker Setup
-cd docker 
+cd docker
 
 docker-compose up -d
 
@@ -72,3 +72,42 @@ GET	/api/search/suggestions?q=...	Typeahead-style suggestions
 GET	/api/search/logs	Top searched terms (admin only)
 
 
+Auth & Profile
+
+POST	/api/login	User login, returns token
+GET	/api/profile	Get current authenticated user
+
+Blog Posts
+
+GET	/api/blogpost	List blog posts
+POST	/api/blogpost/store	Create a blog post
+POST	/api/blogpost/update/{id}	Update blog post by ID
+GET	/api/blogpost/destroy/{id}	Delete blog post by ID
+
+Products
+
+GET	/api/product	List products
+POST	/api/product/store	Create a product
+POST	/api/product/update/{id}	Update product by ID
+GET	/api/product/destroy/{id}	Delete product by ID
+
+Pages
+
+GET	/api/page	List pages
+POST	/api/page/store	Create a page
+POST	/api/page/update/{id}	Update page by ID
+GET	/api/page/destroy/{id}	Delete page by ID
+
+
+
+FAQs
+
+GET	/api/faq	List FAQs
+POST	/api/faq/store	Create FAQ
+POST	/api/faq/update/{id}	Update FAQ by ID
+GET	/api/faq/destroy/{id}	Delete FAQ by ID
+
+
+Utility
+
+GET	/api/ping	Health check ping

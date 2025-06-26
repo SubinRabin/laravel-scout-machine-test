@@ -18,7 +18,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install -j$(nproc) zip \
     && docker-php-ext-configure intl \
-    && docker-php-ext-install intl
+    && docker-php-ext-install intl \
+    && pecl install redis \
+    && docker-php-ext-enable redis
 
   RUN   apt clean && rm -rf /var/lib/apt/lists/*
   # RUN apt-get update && apt-get install -y \

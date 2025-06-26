@@ -8,6 +8,9 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Traits\ForwardsCalls;
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+
 /**
  * @mixin \Illuminate\Routing\Router
  */
@@ -73,7 +76,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::middleware([
+        ValidatePostSize::class,
+            // Add your global middleware here
+        ])
+        ->group(base_path('routes/api.php'));
     }
 
     /**

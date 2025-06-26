@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class SearchController
+ *
+ * @author Subin <subinrabin@gmail.com>
+ */
 
 namespace App\Http\Controllers;
 
@@ -7,12 +12,10 @@ use App\Models\BlogPost;
 use App\Models\Product;
 use App\Models\Page;
 use App\Models\Faq;
-use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Resources\SearchResultResource;
 use App\Models\SearchLog;
-use Illuminate\Container\Attributes\DB;
-use Illuminate\Support\Facades\Auth;
+use App\Jobs\LogSearchQuery;
 
 class SearchController extends Controller
 {
@@ -55,8 +58,14 @@ class SearchController extends Controller
 
     SearchLog::create([
         'query' => $query??'',
+        'user_id' => 1,
         // 'user_id' => auth()->id(),
     ]);
+
+    // $user_id = auth()->id();
+    $user_id = 1;
+    LogSearchQuery::dispatch($query ?? '', $user_id);
+
     return SearchResultResource::collection($paginated);
   }
   public function suggestions(Request $request)
@@ -97,30 +106,5 @@ class SearchController extends Controller
     );
 
     return response()->json($paginated);
-  }
-  public function logs()
-  {
-    // Optional: Check for admin user
-    abort_unless(auth()->user()?->is_admin, 403);
-
-    $topQueries = SearchLog::select('query', DB::raw('count(*) as count'))
-      ->groupBy('query')
-      ->orderByDesc('count')
-      ->limit(10)
-      ->get();
-
-    return response()->json($topQueries);
-  }
-
-  public function reindex()
-  {
-    abort_unless(auth()->user()?->is_admin, 403);
-
-    BlogPost::makeAllSearchable();
-    Product::makeAllSearchable();
-    Page::makeAllSearchable();
-    Faq::makeAllSearchable();
-
-    return response()->json(['message' => 'Search index rebuilt.']);
   }
 }
